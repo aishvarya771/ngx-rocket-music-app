@@ -1,0 +1,51 @@
+<div class="container" fxLayout="row" fxFlex="100">
+  <div fxFlex="60" fxLayout="column">
+    <div>
+      <mat-form-field class="example-full-width" fxFlex="100">
+        <input matInput placeholder="Search Album" (keyup.enter)="getMusic(search.value)" #search>
+      </mat-form-field>
+    </div>
+
+    <mat-nav-list>
+      <mat-list-item *ngFor="let song of playlist" (click)="playSelected(song)">
+        <img matListAvatar src="{{song.album?.cover_medium}}" alt="...">
+        <h3 matLine> {{song.title}} </h3>
+        <p matLine>
+          <span> {{song.artist?.name}} </span>
+          <!-- <span class="demo-2"> -- {{message.content}} </span> -->
+        </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+  <div fxFlex="40" id="player" fxLayout="column" fxLayoutAlign="center center">
+    <div class="header">
+      <h1>TUNE</h1>
+    </div>
+    <div id="disk" class="cue-song animated fadeIn">
+      <h3>Now Playing </h3>
+      <img [ngClass]="{'spin':playing}" [src]="selectedAlbum?.album?.cover ? selectedAlbum?.album?.cover :playerImage"
+        alt="">
+      <span class="title">{{selectedAlbum?.title}}</span>
+      <span class="artist">{{selectedAlbum?.artist?.name}}</span>
+      <div id="play-btn" fxLayout="row" fxLayoutAlign="space-around" style="width:100%">
+        <button mat-icon-button>
+          <mat-icon class="f-36">fast_rewind</mat-icon>
+        </button>
+        <button mat-icon-button (click)="play()" *ngIf="!playing">
+          <mat-icon class="f-36">play_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button (click)="pause()" *ngIf="playing">
+          <mat-icon class="f-36">pause_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon class="f-36">fast_forward</mat-icon>
+        </button>
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
